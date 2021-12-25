@@ -52,8 +52,8 @@ const ScatterPlot = () => {
   }
   return (
     <Wrapper>
-      <ScatterPlotContainer>
-        <ChartSvg>
+      <ScatterPlotContainer ref={wrapperRef}>
+        <ChartSvg ref={ScatterPlotChart}>
           <g className="x-axis" />
           <g className="y-axis" />
         </ChartSvg>
