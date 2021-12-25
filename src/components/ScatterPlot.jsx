@@ -134,6 +134,14 @@ const ScatterPlot = () => {
       )
       .call((g) => g.selectAll(".tick text").attr("x", -10).attr("dy", 0));
 
+    let div = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0)
+      .style("left", "0px")
+      .style("top", "0px");
+
     const myLine = d3
       .line()
       .x((value, index) => LineScale(index))
@@ -164,12 +172,45 @@ const ScatterPlot = () => {
       .data(data)
       .join("circle")
       .attr("class", "dot")
+
       .attr("r", 5)
       .attr("cx", (value) => xScale(value.Date))
+
       .attr("cy", (value) => yScale(value.TransistorCount))
+
+      .on("mouseover", function (event, d) {
+        d3.select(this).style("fill", "greenyellow");
+        div.transition().duration(200).style("opacity", 1);
+        div
+          .html(
+            `<span style="font-weight:600;font-size:1rem">${d.Processor}</span>` +
+              " " +
+              `<span style="font-size:0.9rem">(${d.Date})</span>` +
+              "<br/>" +
+              `<span style="font-size:0.95rem">Transistors: ${d3
+                .format(".2s")(d.TransistorCount)
+                .replace("G", " Billion")
+                .replace("M", " Million")}</span>` +
+              "<br/>" +
+              `<span style="font-size:0.95rem">Designer: ${d.Designer}</span>` +
+              "<br/>" +
+              `<span style="font-size:0.95rem">Process: ${d.MOSProcess}</span>`
+          )
+          .style("left", event.pageX - 20 + "px")
+          .style("top", event.pageY - 120 + "px");
+      })
+      .on("mouseout", function () {
+        d3.select(this).style("fill", "#cfcfff");
+        // d3.select(this).style("fill", (d) => colorScale(d.TransistorCount));
+        div.transition().duration(500).style("opacity", 0);
+      })
       .transition()
       .style("fill", "#cfcfff")
       .style("stroke", "blue");
+
+    return () => {
+      div.remove();
+    };
   }, [data, dimensions]);
 
   useEffect(() => {
