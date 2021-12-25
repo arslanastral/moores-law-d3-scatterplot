@@ -35,7 +35,13 @@ const ScatterPlot = () => {
   const { data, setData, currentData } = useContext(ScatterPlotContext);
 
   useEffect(() => {
-    d3.csv(currentData.URL).then(setData);
+    const row = (d) => {
+      d.TransistorCount = +d.TransistorCount.split(",").join("");
+      d.Date = +d.Date;
+
+      return d;
+    };
+    d3.csv(currentData.URL, row).then(setData);
   }, [currentData, setData]);
 
   if (!data) {
