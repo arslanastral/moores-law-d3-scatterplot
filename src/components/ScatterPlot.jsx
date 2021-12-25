@@ -59,6 +59,54 @@ const ScatterPlot = () => {
       ])
       .range([dimensions.height, 0])
       .nice();
+
+    const xAxis = d3
+      .axisBottom(xScale)
+      .tickValues(
+        xScale.domain().filter(function (d, i) {
+          const MIN_WIDTH = 20;
+          let skip = Math.round((MIN_WIDTH * data.length) / dimensions.width);
+          skip = Math.max(2, skip);
+          return !(i % skip);
+        })
+      )
+      .tickPadding(15);
+
+    svg
+      .select(".x-axis")
+      .style("transform", `translate(0px,${dimensions.height}px)`)
+      .attr("font-family", "Inter")
+      .attr("font-size", "1rem")
+      .attr("color", "blue")
+      .transition()
+      .duration(300)
+      .call(xAxis);
+
+    svg.select(".x-axis").select("path").remove(); //removes outer ticks
+
+    const yAxis = d3
+      .axisLeft(yScale)
+      .ticks(6)
+      .tickSizeOuter(0)
+      .tickSize(-dimensions.width)
+      .tickFormat(
+        (d) => d3.format(".1s")(d).replace("G", "B").replace("M", "M")
+        // d3.format(",.2r")(d)
+      );
+    svg
+      .select(".y-axis")
+      .attr("font-family", "Inter")
+      .attr("font-size", "0.9rem")
+      .attr("color", "blue")
+      .call(yAxis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g
+          .selectAll(".tick:not(:first-of-type) line")
+          .attr("stroke-opacity", 0.5)
+          .attr("stroke-dasharray", "2,2")
+      )
+      .call((g) => g.selectAll(".tick text").attr("x", -10).attr("dy", 0));
   }, [data, dimensions]);
 
   useEffect(() => {
