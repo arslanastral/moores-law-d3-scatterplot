@@ -31,6 +31,28 @@ const ChartSvg = styled.svg`
   overflow: visible !important;
 `;
 
+const Title = styled.h1`
+  color: blue;
+  animation: fadeIn;
+  animation-duration: 1s;
+  font-family: "Playfair Display", serif;
+  margin: -4rem 0rem 7rem 1rem;
+  line-height: 45px;
+  font-size: clamp(3rem, 8vw, 4rem);
+`;
+
+const Subtitle = styled.p`
+  color: #414142;
+  animation: fadeIn;
+  animation-duration: 1s;
+  font-family: Inter;
+  text-align: center;
+  margin: -5rem 2rem 5rem 2rem;
+  /* margin: 0 1rem 7rem 1rem; */
+  /* line-height: 45px; */
+  font-size: clamp(1rem, 4vw, 1rem);
+`;
+
 const ScatterPlot = () => {
   const { data, setData, currentData } = useContext(ScatterPlotContext);
   const ScatterPlotChart = useRef();
@@ -228,6 +250,8 @@ const ScatterPlot = () => {
   }
   return (
     <Wrapper>
+      <Title>{"Moore's Law"}</Title>
+      <Subtitle>{`"The number of transistors in a dense integrated circuit (IC) doubles about every two years."`}</Subtitle>
       <ScatterPlotContainer ref={wrapperRef}>
         <ChartSvg ref={ScatterPlotChart}>
           <g className="x-axis" />
