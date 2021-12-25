@@ -133,6 +133,18 @@ const ScatterPlot = () => {
           .attr("stroke-dasharray", "2,2")
       )
       .call((g) => g.selectAll(".tick text").attr("x", -10).attr("dy", 0));
+
+    svg
+      .selectAll(".dot")
+      .data(data)
+      .join("circle")
+      .attr("class", "dot")
+      .attr("r", 5)
+      .attr("cx", (value) => xScale(value.Date))
+      .attr("cy", (value) => yScale(value.TransistorCount))
+      .transition()
+      .style("fill", "#cfcfff")
+      .style("stroke", "blue");
   }, [data, dimensions]);
 
   useEffect(() => {
