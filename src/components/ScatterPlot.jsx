@@ -52,6 +52,8 @@ const Subtitle = styled.p`
 `;
 
 const LegendContainer = styled.div`
+  animation: fadeIn;
+  animation-duration: 1s;
   margin: 0rem 2rem 2rem 2rem;
   font-family: Inter;
   display: flex;
@@ -271,7 +273,7 @@ const ScatterPlot = () => {
           </LegendTitle>
         </LegendWrapper>
       </LegendContainer>
-      <ScatterPlotContainer class="chart-container" ref={wrapperRef}>
+      <ScatterPlotContainer ref={wrapperRef}>
         <ChartSvg ref={ScatterPlotChart}>
           <g className="x-axis" />
           <g className="y-axis" />
