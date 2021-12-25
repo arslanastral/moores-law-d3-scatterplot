@@ -47,10 +47,36 @@ const Subtitle = styled.p`
   animation-duration: 1s;
   font-family: Inter;
   text-align: center;
-  margin: -5rem 2rem 5rem 2rem;
-  /* margin: 0 1rem 7rem 1rem; */
-  /* line-height: 45px; */
+  margin: -5rem 2rem 2rem 2rem;
   font-size: clamp(1rem, 4vw, 1rem);
+`;
+
+const LegendContainer = styled.div`
+  margin: 0rem 2rem 2rem 2rem;
+  font-family: Inter;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const LegendWrapper = styled.div`
+  margin-left: 20px;
+`;
+
+const LegendIcon = styled.span`
+  background-color: #cfcfff;
+  border-radius: 50%;
+  border: 1px solid blue;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  display: inline-block;
+`;
+
+const LegendTitle = styled.span`
+  font-size: 0.95rem;
+
+  letter-spacing: -1px;
 `;
 
 const ScatterPlot = () => {
@@ -68,14 +94,6 @@ const ScatterPlot = () => {
       .domain(data.map((d) => d.Date))
       .range([30, dimensions.width - 30]);
 
-    // const CircleAreaScale = d3
-    //   .scaleSqrt()
-    //   .domain([
-    //     d3.min(data.map((d) => d.TransistorCount)),
-    //     d3.max(data.map((d) => d.TransistorCount)),
-    //   ])
-    //   .range([5, 20]);
-
     let reducer = (previousValue, currentValue, currentIndex) => {
       let newVal = previousValue[currentIndex] * 2;
       return [...previousValue, newVal];
@@ -90,14 +108,6 @@ const ScatterPlot = () => {
       .scaleLinear()
       .domain([0, prediction.length - 1])
       .range([30, dimensions.width - 30]);
-
-    // const colorScale = d3
-    //   .scaleLinear()
-    //   .domain([
-    //     d3.min(data.map((d) => d.TransistorCount)),
-    //     d3.max(data.map((d) => d.TransistorCount)),
-    //   ])
-    //   .range(["#cfcfff", "#1500ff"]);
 
     const yScale = d3
       .scaleLog()
@@ -137,9 +147,8 @@ const ScatterPlot = () => {
       .ticks(6)
       .tickSizeOuter(0)
       .tickSize(-dimensions.width)
-      .tickFormat(
-        (d) => d3.format(".1s")(d).replace("G", "B").replace("M", "M")
-        // d3.format(",.2r")(d)
+      .tickFormat((d) =>
+        d3.format(".1s")(d).replace("G", "B").replace("M", "M")
       );
     svg
       .select(".y-axis")
@@ -176,7 +185,7 @@ const ScatterPlot = () => {
       .attr("class", "line")
       .attr("d", myLine)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "blue")
       .attr("stroke-width", "3");
 
     let pathTotalLength = path.node().getTotalLength();
@@ -194,12 +203,9 @@ const ScatterPlot = () => {
       .data(data)
       .join("circle")
       .attr("class", "dot")
-
       .attr("r", 5)
       .attr("cx", (value) => xScale(value.Date))
-
       .attr("cy", (value) => yScale(value.TransistorCount))
-
       .on("mouseover", function (event, d) {
         d3.select(this).style("fill", "greenyellow");
         div.transition().duration(200).style("opacity", 1);
@@ -223,7 +229,6 @@ const ScatterPlot = () => {
       })
       .on("mouseout", function () {
         d3.select(this).style("fill", "#cfcfff");
-        // d3.select(this).style("fill", (d) => colorScale(d.TransistorCount));
         div.transition().duration(500).style("opacity", 0);
       })
       .transition()
@@ -252,7 +257,21 @@ const ScatterPlot = () => {
     <Wrapper>
       <Title>{"Moore's Law"}</Title>
       <Subtitle>{`"The number of transistors in a dense integrated circuit (IC) doubles about every two years."`}</Subtitle>
-      <ScatterPlotContainer ref={wrapperRef}>
+      <LegendContainer>
+        <LegendWrapper>
+          <LegendIcon style={{ background: "blue" }}></LegendIcon>
+          <LegendTitle className="legend-title">
+            {"Moore's Prediction"}
+          </LegendTitle>
+        </LegendWrapper>
+        <LegendWrapper>
+          <LegendIcon></LegendIcon>
+          <LegendTitle className="legend-title">
+            Actual Transistor Count
+          </LegendTitle>
+        </LegendWrapper>
+      </LegendContainer>
+      <ScatterPlotContainer class="chart-container" ref={wrapperRef}>
         <ChartSvg ref={ScatterPlotChart}>
           <g className="x-axis" />
           <g className="y-axis" />
