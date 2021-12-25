@@ -35,6 +35,7 @@ const ScatterPlot = () => {
   const { data, setData, currentData } = useContext(ScatterPlotContext);
   const ScatterPlotChart = useRef();
   const wrapperRef = useRef();
+  const dimensions = useResizeObserver(wrapperRef);
 
   useEffect(() => {
     const row = (d) => {
