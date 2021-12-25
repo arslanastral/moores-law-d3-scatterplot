@@ -38,6 +38,30 @@ const ScatterPlot = () => {
   const dimensions = useResizeObserver(wrapperRef);
 
   useEffect(() => {
+    const svg = d3.select(ScatterPlotChart.current);
+    if (!dimensions) return;
+
+    const xScale = d3
+      .scalePoint()
+      .domain(data.map((d) => d.Date))
+      .range([30, dimensions.width - 30]);
+
+    const LineScale = d3
+      .scaleLinear()
+      .domain([0, prediction.length - 1])
+      .range([30, dimensions.width - 30]);
+
+    const yScale = d3
+      .scaleLog()
+      .domain([
+        d3.min(data.map((d) => d.TransistorCount)),
+        d3.max(data.map((d) => d.TransistorCount)),
+      ])
+      .range([dimensions.height, 0])
+      .nice();
+  }, [data, dimensions]);
+
+  useEffect(() => {
     const row = (d) => {
       d.TransistorCount = +d.TransistorCount.split(",").join("");
       d.Date = +d.Date;
