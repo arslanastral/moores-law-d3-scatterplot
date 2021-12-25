@@ -34,6 +34,13 @@ const ChartSvg = styled.svg`
 const ScatterPlot = () => {
   const { data, setData, currentData } = useContext(ScatterPlotContext);
 
+  useEffect(() => {
+    d3.csv(currentData.URL).then(setData);
+  }, [currentData, setData]);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
   return (
     <Wrapper>
       <ScatterPlotContainer>
