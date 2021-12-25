@@ -33,6 +33,8 @@ const ChartSvg = styled.svg`
 
 const ScatterPlot = () => {
   const { data, setData, currentData } = useContext(ScatterPlotContext);
+  const ScatterPlotChart = useRef();
+  const wrapperRef = useRef();
 
   useEffect(() => {
     const row = (d) => {
