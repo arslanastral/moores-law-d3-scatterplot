@@ -46,10 +46,36 @@ const ScatterPlot = () => {
       .domain(data.map((d) => d.Date))
       .range([30, dimensions.width - 30]);
 
+    // const CircleAreaScale = d3
+    //   .scaleSqrt()
+    //   .domain([
+    //     d3.min(data.map((d) => d.TransistorCount)),
+    //     d3.max(data.map((d) => d.TransistorCount)),
+    //   ])
+    //   .range([5, 20]);
+
+    let reducer = (previousValue, currentValue, currentIndex) => {
+      let newVal = previousValue[currentIndex] * 2;
+      return [...previousValue, newVal];
+    };
+
+    let prediction = xScale
+      .domain()
+      .reduce(reducer, [2250])
+      .slice(0, xScale.domain().length / 2);
+
     const LineScale = d3
       .scaleLinear()
       .domain([0, prediction.length - 1])
       .range([30, dimensions.width - 30]);
+
+    // const colorScale = d3
+    //   .scaleLinear()
+    //   .domain([
+    //     d3.min(data.map((d) => d.TransistorCount)),
+    //     d3.max(data.map((d) => d.TransistorCount)),
+    //   ])
+    //   .range(["#cfcfff", "#1500ff"]);
 
     const yScale = d3
       .scaleLog()
