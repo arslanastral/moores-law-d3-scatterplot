@@ -134,6 +134,31 @@ const ScatterPlot = () => {
       )
       .call((g) => g.selectAll(".tick text").attr("x", -10).attr("dy", 0));
 
+    const myLine = d3
+      .line()
+      .x((value, index) => LineScale(index))
+      .y(yScale);
+
+    let path = svg
+      .selectAll(".line")
+      .data([prediction])
+      .join("path")
+      .attr("class", "line")
+      .attr("d", myLine)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", "3");
+
+    let pathTotalLength = path.node().getTotalLength();
+
+    path
+      .attr("stroke-dasharray", pathTotalLength + " " + pathTotalLength)
+      .attr("stroke-dashoffset", pathTotalLength)
+      .transition()
+      .duration(2000)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+
     svg
       .selectAll(".dot")
       .data(data)
