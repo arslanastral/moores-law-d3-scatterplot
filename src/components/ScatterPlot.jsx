@@ -23,7 +23,11 @@ const Wrapper = styled.div`
 `;
 
 const ScatterPlot = () => {
-  return <div></div>;
+  return (
+    <Wrapper>
+      <ScatterPlotContainer></ScatterPlotContainer>
+    </Wrapper>
+  );
 };
 
 export default ScatterPlot;
