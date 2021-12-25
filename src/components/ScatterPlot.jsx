@@ -32,6 +32,8 @@ const ChartSvg = styled.svg`
 `;
 
 const ScatterPlot = () => {
+  const { data, setData, currentData } = useContext(ScatterPlotContext);
+
   return (
     <Wrapper>
       <ScatterPlotContainer>
