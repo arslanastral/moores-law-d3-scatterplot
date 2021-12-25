@@ -22,10 +22,24 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const ChartSvg = styled.svg`
+  width: 100%;
+  height: 100%;
+  margin-left: 25px;
+  animation: fadeIn;
+  animation-duration: 1s;
+  overflow: visible !important;
+`;
+
 const ScatterPlot = () => {
   return (
     <Wrapper>
-      <ScatterPlotContainer></ScatterPlotContainer>
+      <ScatterPlotContainer>
+        <ChartSvg>
+          <g className="x-axis" />
+          <g className="y-axis" />
+        </ChartSvg>
+      </ScatterPlotContainer>
     </Wrapper>
   );
 };
