@@ -218,7 +218,7 @@ const ScatterPlot = () => {
               `<span style="font-size:0.9rem">(${d.Date})</span>` +
               "<br/>" +
               `<span style="font-size:0.95rem">Transistors: ${d3
-                .format(".2s")(d.TransistorCount)
+                .format(".3s")(d.TransistorCount)
                 .replace("G", " Billion")
                 .replace("M", " Million")}</span>` +
               "<br/>" +
