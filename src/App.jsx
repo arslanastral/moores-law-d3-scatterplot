@@ -36,7 +36,7 @@ function ScatterPlotProvider({ children }) {
   const [currentData, setcurrentData] = useState({
     type: "TransistorCount",
     URL:
-      "https://gist.githubusercontent.com/arslanastral/6ac598aeeaf2c577dcbb785f203b263b/raw/5d79c7d8350f6aa5692bb464c3f8eb9141ea6020/mircroprocessor-transistor-count.csv",
+      "https://gist.githubusercontent.com/arslanastral/6ac598aeeaf2c577dcbb785f203b263b/raw/mircroprocessor-transistor-count.csv",
   });
 
   return (

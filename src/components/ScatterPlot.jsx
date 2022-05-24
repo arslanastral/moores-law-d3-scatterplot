@@ -146,7 +146,7 @@ const ScatterPlot = () => {
 
     const yAxis = d3
       .axisLeft(yScale)
-      .ticks(6)
+      .ticks(7)
       .tickSizeOuter(0)
       .tickSize(-dimensions.width)
       .tickFormat((d) =>
