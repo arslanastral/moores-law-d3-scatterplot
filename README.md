@@ -1,15 +1,15 @@
-# Scatterplot Graph ✔
+# 🧮 Moore's Law Scatterplot
 
 Live Demo: [https://mooreslaw.netlify.app/](https://mooreslaw.netlify.app/)
 
-Scatterplot Graph for freeCodeCamp Project.
+A responsive scatterplot of moore's law with tooltips for data points. Built using React and D3.js
 
 ## Local Development:
 
-- `git clone` this repo and `cd` into `04_Data-Visualization/02_Scatterplot-Graph` directory and enter below commands
+- `git clone` this repo and `cd` into it and then:
 - `npm install`
 - `npm run dev` (To start development server)
 
 ## Preview:
 
-![](https://raw.githubusercontent.com/arslanastral/freeCodeCamp-Projects/main/04_Data-Visualization/02_Scatterplot-Graph/scatterplot-preview.png)
+![moores-law-d3-scatterplot](https://raw.githubusercontent.com/arslanastral/moores-law-d3-scatterplot/main/scatterplot-preview.png)
